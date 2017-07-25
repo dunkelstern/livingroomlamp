@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="LivingRoomLamp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="UH0-AG-1Mk">
+                                <rect key="frame" x="20" y="56.5" width="335" height="554"/>
+                                <subviews>
+                                    <imageView contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ColorWheel" translatesAutoresizingMaskIntoConstraints="NO" id="QgJ-5I-AjA">
+                                        <rect key="frame" x="37.5" y="0.0" width="260" height="260"/>
+                                    </imageView>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="82e-ZH-dlo">
+                                        <rect key="frame" x="-2" y="304" width="339" height="31"/>
+                                        <connections>
+                                            <action selector="brightnessChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Mc4-PU-1dE"/>
+                                        </connections>
+                                    </slider>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="o7n-Ut-XEK">
+                                        <rect key="frame" x="-2" y="378" width="339" height="31"/>
+                                        <connections>
+                                            <action selector="lowRingChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="3Lr-ln-HVf"/>
+                                        </connections>
+                                    </slider>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Ic-y3-0hk">
+                                        <rect key="frame" x="-2" y="452" width="339" height="31"/>
+                                        <connections>
+                                            <action selector="highRingChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="XPF-Zs-qpV"/>
+                                        </connections>
+                                    </slider>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="auy-4i-HyZ">
+                                        <rect key="frame" x="48" y="526" width="239" height="28"/>
+                                        <subviews>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Xfs-0k-qle">
+                                                <rect key="frame" x="0.0" y="0.0" width="239" height="29"/>
+                                                <segments>
+                                                    <segment title="White"/>
+                                                    <segment title="Cinema"/>
+                                                    <segment title="Mood light"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="modeChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="dwY-xI-f1P"/>
+                                                </connections>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="QgJ-5I-AjA" firstAttribute="centerX" secondItem="UH0-AG-1Mk" secondAttribute="centerX" id="4yF-Dq-BN1"/>
+                                    <constraint firstItem="82e-ZH-dlo" firstAttribute="leading" secondItem="UH0-AG-1Mk" secondAttribute="leading" id="CJ6-Xb-fq8"/>
+                                    <constraint firstAttribute="trailing" secondItem="9Ic-y3-0hk" secondAttribute="trailing" id="Ema-yj-LRl"/>
+                                    <constraint firstItem="9Ic-y3-0hk" firstAttribute="leading" secondItem="UH0-AG-1Mk" secondAttribute="leading" id="M7C-Wf-sqq"/>
+                                    <constraint firstItem="o7n-Ut-XEK" firstAttribute="leading" secondItem="UH0-AG-1Mk" secondAttribute="leading" id="nbH-Sk-4Pa"/>
+                                    <constraint firstAttribute="trailing" secondItem="o7n-Ut-XEK" secondAttribute="trailing" id="u8z-3e-EZ0"/>
+                                    <constraint firstAttribute="trailing" secondItem="82e-ZH-dlo" secondAttribute="trailing" id="zuq-bZ-5cH"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="UH0-AG-1Mk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1g3-6E-IFV"/>
+                            <constraint firstAttribute="trailing" secondItem="UH0-AG-1Mk" secondAttribute="trailing" constant="20" id="C2Y-pg-iaC"/>
+                            <constraint firstItem="UH0-AG-1Mk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="llE-df-nza"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="brightness" destination="82e-ZH-dlo" id="qMb-ye-AzJ"/>
+                        <outlet property="colorWheel" destination="QgJ-5I-AjA" id="N48-TH-lcS"/>
+                        <outlet property="highRing" destination="9Ic-y3-0hk" id="Z0O-fx-zpJ"/>
+                        <outlet property="lowRing" destination="o7n-Ut-XEK" id="euk-Ih-wg8"/>
+                        <outlet property="mode" destination="Xfs-0k-qle" id="q04-Rg-Av0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ColorWheel" width="260" height="260"/>
+    </resources>
+</document>

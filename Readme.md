@@ -27,6 +27,7 @@ For CAD drawings (no 3D printed parts this time as the lamp will get quite warm 
 
 - Arduino sketch (see `arduino` subfolder)
 - ESP8266 firmware, based on FreeRTOS and my HTTP library (see `esp8266` subfolder)
+- iPhone APP (see `apps/iphone` subfolder)
 
 For firmware look no further as into the `firmware` subfolder.
 
