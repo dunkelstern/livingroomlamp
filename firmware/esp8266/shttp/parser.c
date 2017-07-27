@@ -324,7 +324,7 @@ bool shttp_parse(shttpParserState *state, char *buffer, uint16_t len, int socket
         LOG(TRACE, "shttp: parser loop entered, %d bytes left (intro: %d, headers: %d)", state->request.bodyLen, state->introductionFinished, state->headerFinished);
 
         // check if we are in header or body mode
-        if ((!state->introductionFinished) && (!state->headerFinished)) {
+        if ((!state->introductionFinished) || (!state->headerFinished)) {
             // check if we have a \r\n in the buffer
             char *data = state->request.bodyData;
             for (uint16_t i = 0; i < state->request.bodyLen - 1; i++) {
