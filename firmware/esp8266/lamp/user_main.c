@@ -11,6 +11,8 @@
 #include <mdns/mdns.h>
 #include <cJSON.h>
 
+#include <files.h>
+
 #define HOSTNAME "wohnzimmerlampe"
 
 void startup(void *userData);
@@ -29,6 +31,12 @@ static float brightness = 1.0;
 static float lowPowerRing = 1.0;
 static float highPowerRing = 0.0;
 static Mode mode = modeWhite;
+
+typedef struct _getFileData {
+    const char *data;
+    const uint32_t size;
+    char *mimeType;
+} getFileData;
 
 /******************************************************************************
  * FunctionName : user_rf_cal_sector_set
@@ -146,12 +154,12 @@ static cJSON *buildResponse(void) {
     return root;
 }
 
-static shttpResponse *getParameters(shttpRequest *request) {
+static shttpResponse *getParameters(shttpRequest *request, void *userData) {
     cJSON *root = buildResponse();
     return shttp_json_response(shttpStatusOK, root);
 }
 
-static shttpResponse *setParameters(shttpRequest *request) {
+static shttpResponse *setParameters(shttpRequest *request, void *userData) {
     cJSON *item;
     cJSON *root = cJSON_Parse(request->bodyData);
     if (!root) {
@@ -204,6 +212,17 @@ static shttpResponse *setParameters(shttpRequest *request) {
     return shttp_json_response(shttpStatusOK, root);
 }
 
+static shttpResponse *getFile(shttpRequest *request, void *userData) {
+    getFileData *fileData = (getFileData *)userData;
+
+    shttpResponse *response = shttp_empty_response(shttpStatusOK);
+    shttp_response_add_headers(response, "Content-Type", fileData->mimeType, NULL);
+    response->body = (char *)fileData->data;
+    response->bodyLen = fileData->size;
+
+    return response;
+}
+
 /******************************************************************************
  * FunctionName : user_init
  * Description  : entry of user application, init user function here
@@ -237,9 +256,12 @@ void startup(void *userData) {
     config.appendSlashes = 1;
 
     config.routes = (shttpRoute *[]){
-        GET("/parameters", getParameters),
-        POST("/parameters", setParameters),
-        PATCH("/parameters", setParameters),
+        GET( "/parameters",  getParameters, NULL),
+        POST("/parameters", setParameters, NULL),
+        GET( "",            getFile, &((getFileData){ index_html,   index_html_len, "text/html" })),
+        GET( "/main.css",    getFile, &((getFileData){ main_css,    main_css_len,   "text/css" })),
+        GET( "/main.js",     getFile, &((getFileData){ main_js,     main_js_len,    "text/javascript" })),
+        GET( "/favicon.ico", getFile, &((getFileData){ favicon_ico, favicon_ico_len, "image/x-icon" })),
         NULL
     };
 

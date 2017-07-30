@@ -3,3 +3,4 @@
 .DS_Store
 **/*.xcodeproj/project.xcworkspace/xcuserdata
 **/*.xcodeproj/xcuserdata/*
+firmware/esp8266/include/files.h

@@ -25,6 +25,7 @@ SUBDIRS=    \
 	shttp	\
 	mdns	\
 	platform \
+	web		\
 	lamp
 
 endif # } PDIR
