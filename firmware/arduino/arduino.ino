@@ -23,9 +23,9 @@ typedef enum _mode {
 Mode mode = modeWhite;
 
 const uint8_t pixelKeepout[3][2] = {
-  { 34,  35},
-  { 70,  71},
-  {102, 103},
+  { 2,   14},
+  { 38,  48},
+  { 70,  82},
 };
 
 NeoPixelBus<NeoGrbwFeature, Neo800KbpsMethod> strip(PixelCount, PixelPin);
@@ -50,7 +50,7 @@ void updateLight(void) {
           }
         }
         if (skip) {
-          strip.SetPixelColor(pixel, RgbwColor(64,0,0,0));
+          strip.SetPixelColor(pixel, RgbwColor(0,0,0,0));
         } else {
           uint16_t ww = brightness > 255 ? 255 : brightness;
           uint16_t cw = brightness > 255 ? (brightness - 256) : 0;
