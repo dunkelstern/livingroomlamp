@@ -22,14 +22,16 @@ GEN_IMAGES= eagle.app.v6.out
 GEN_BINS= eagle.app.v6.bin
 SPECIAL_MKTARGETS=$(APP_MKTARGETS)
 SUBDIRS=    \
-	shttp    \
+	shttp	\
+	mdns	\
+	platform \
 	lamp
 
 endif # } PDIR
 
 LDDIR = $(SDK_PATH)/ld
 
-CCFLAGS += -Os -DDEBUG_LEVEL=ERROR
+CCFLAGS += -Os -DDEBUG_LEVEL=TRACE -DMDNS_BROADCAST_ONLY=1
 
 TARGET_LDFLAGS =		\
 	-nostdlib		\
@@ -46,6 +48,8 @@ ifeq ($(FLAVOR),release)
 endif
 
 COMPONENTS_eagle.app.v6 = \
+	mdns/libmdns.a \
+	platform/libplatform.a \
 	lamp/libuser.a  \
 	shttp/libsimplehttp.a
 
@@ -63,8 +67,8 @@ LINKFLAGS_eagle.app.v6 = \
 	-lespconn	\
 	-lespnow	\
 	-lfreertos	\
-	-lgcc					\
-	-lhal					\
+	-lgcc	\
+	-lhal	\
 	-ljson	\
 	-llwip	\
 	-lmain	\
@@ -76,11 +80,10 @@ LINKFLAGS_eagle.app.v6 = \
 	-lpp	\
 	-lpwm	\
 	-lsmartconfig	\
-	-lspiffs	\
 	-lssl	\
 	-lwpa	\
-	-lwps		\
-	$(DEP_LIBS_eagle.app.v6)					\
+	-lwps	\
+	$(DEP_LIBS_eagle.app.v6)	\
 	-Wl,--end-group
 
 DEPENDS_eagle.app.v6 = \
@@ -126,6 +129,7 @@ DDEFINES +=				\
 
 INCLUDES := $(INCLUDES) -I $(PDIR)include
 INCLUDES += -I $(SDK_PATH)/include/lwip/posix
+INCLUDES += -I $(PDIR)platform
 sinclude $(SDK_PATH)/Makefile
 
 .PHONY: FORCE

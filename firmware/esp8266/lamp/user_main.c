@@ -8,9 +8,14 @@
 #include <freertos/task.h>
 
 #include <simplehttp/http.h>
+#include <mdns/mdns.h>
 #include <cJSON.h>
 
+#define HOSTNAME "wohnzimmerlampe"
+
 void startup(void *userData);
+
+mdnsHandle *mdns;
 
 typedef enum _mode {
     modeWhite = 0,
@@ -79,12 +84,20 @@ void ICACHE_FLASH_ATTR wifi_event_handler_cb(System_Event_t *event) {
 
     if (event->event_id == EVENT_STAMODE_GOT_IP) {
         if (running) {
+    		mdns_update_ip(mdns, event->event_info.got_ip.ip);    
             return;
         }
         running = 1;
         
         if (xTaskCreate(startup, "server", 250, NULL, 4, NULL) != pdPASS) {
             printf("HTTP Startup failed!\n");
+        } else {
+            mdns = mdns_create(HOSTNAME);
+            mdns_update_ip(mdns, event->event_info.got_ip.ip);    
+            mdnsService *service = mdns_create_service("_http", mdnsProtocolTCP, 80);
+            // mdns_service_add_txt(service, "bla", "blubb");
+            mdns_add_service(mdns, service);
+            mdns_start(mdns);
         }
     }
 }
@@ -215,7 +228,7 @@ void startup(void *userData) {
 
     // set a hostname, if a request with a different host header
     // arrives the server will automatically return 404
-    config.hostName = "lamp.local";
+    config.hostName = HOSTNAME ".local";
 
     // the port to use, default should be 80
     config.port = "80";
