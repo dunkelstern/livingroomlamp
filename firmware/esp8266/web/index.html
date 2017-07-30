@@ -3,11 +3,22 @@
     <head>
         <meta charset="utf-8"/>
         <title>Wohnzimmerlampe</title>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, width=device-width">
         <link rel="stylesheet" type="text/css" href="main.css" />
     </head>
     <body>
         <div id="main">
-        <h1>Wohnzimmerlampe</h1>
+        <ul>
+            <li><img id="colorwheel" src="colorwheel.jpg" /></li>
+            <li><input type="range" min="0.0" max="2.0" value="1.0" step="0.1" id="brightness" /></li>
+            <li><input type="range" min="0.0" max="1.0" value="0.0" step="0.1" id="lowPower" /></li>
+            <li><input type="range" min="0.0" max="1.0" value="0.0" step="0.1" id="highPower" /></li>
+            <li>
+                <input type="radio" id="white" name="mode" value="white" checked><label for="white">White</label>
+                <input type="radio" id="cinema" name="mode" value="cinema"><label for="cinema">Cinema</label>
+                <input type="radio" id="mood" name="mode" value="moodlight"><label for="mood">Moodlight</label>
+            </li>
+        </ul>
         </div>
         <script src="main.js"></script>
     </body>

@@ -258,10 +258,12 @@ void startup(void *userData) {
     config.routes = (shttpRoute *[]){
         GET( "/parameters",  getParameters, NULL),
         POST("/parameters", setParameters, NULL),
-        GET( "",            getFile, &((getFileData){ index_html,   index_html_len, "text/html" })),
-        GET( "/main.css",    getFile, &((getFileData){ main_css,    main_css_len,   "text/css" })),
-        GET( "/main.js",     getFile, &((getFileData){ main_js,     main_js_len,    "text/javascript" })),
-        GET( "/favicon.ico", getFile, &((getFileData){ favicon_ico, favicon_ico_len, "image/x-icon" })),
+        GET( "",                getFile, &((getFileData){ index_html,     index_html_len,     "text/html" })),
+        GET( "/main.css",       getFile, &((getFileData){ main_css,       main_css_len,       "text/css" })),
+        GET( "/main.js",        getFile, &((getFileData){ main_js,        main_js_len,        "text/javascript" })),
+        GET( "/favicon.ico",    getFile, &((getFileData){ favicon_ico,    favicon_ico_len,    "image/x-icon" })),
+        GET( "/hexagon.png",    getFile, &((getFileData){ hexagon_png,    hexagon_png_len,    "image/png" })),
+        GET( "/colorwheel.jpg", getFile, &((getFileData){ colorwheel_jpg, colorwheel_jpg_len, "image/jpeg" })),
         NULL
     };
 
