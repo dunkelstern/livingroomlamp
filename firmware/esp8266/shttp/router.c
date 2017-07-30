@@ -139,18 +139,19 @@ void shttp_exec_route(char *path, shttpMethod method, shttpRequest *request, int
     LOG(TRACE, "shttp: %d URL path parameters", request->numPathParameters);
 
     // call callback and return response
-    shttp_write_response(route->callback(request), socket);
+    shttp_write_response(route->callback(request, route->userData), socket);
 }
 
 //
 // API
 //
 
-shttpRoute *shttp_route(shttpMethod method, char *path, shttpRouteCallback *callback) {
+shttpRoute *shttp_route(shttpMethod method, char *path, shttpRouteCallback *callback, void *userData) {
     shttpRoute *route = malloc(sizeof(shttpRoute));
     route->allowedMethods = method;
     route->path = path;
     route->callback = callback;
+    route->userData = userData;
 
     return route;
 }

@@ -170,7 +170,7 @@ typedef enum _shttpMethod {
     shttpMethodHEAD    = (1 << 6),
 } shttpMethod;
 
-typedef shttpResponse *(shttpRouteCallback)(shttpRequest *request);
+typedef shttpResponse *(shttpRouteCallback)(shttpRequest *request, void *userData);
 
 typedef struct _shttpRoute {
     // allowed methods for this route, add them together to allow
@@ -184,6 +184,9 @@ typedef struct _shttpRoute {
 
     // callback to call when route found
     shttpRouteCallback *callback;
+
+    // user data sent to the callback
+    void *userData;
 
     // if you define multiple routes with the same path and different
     // allowedMethods then the list is processed until a matching
@@ -225,15 +228,15 @@ char *shttp_url_decode(char *value);
 // convenience functions
 //
 
-shttpRoute *shttp_route(shttpMethod method, char *path, shttpRouteCallback *callback);
+shttpRoute *shttp_route(shttpMethod method, char *path, shttpRouteCallback *callback, void *userData);
 
-#define GET(_path, _callback) shttp_route(shttpMethodGET, (_path), (_callback))
-#define POST(_path, _callback) shttp_route(shttpMethodPOST, (_path), (_callback))
-#define PUT(_path, _callback) shttp_route(shttpMethodPUT, (_path), (_callback))
-#define PATCH(_path, _callback) shttp_route(shttpMethodPATCH, (_path), (_callback))
-#define DELETE(_path, _callback) shttp_route(shttpMethodDELETE, (_path), (_callback))
-#define OPTIONS(_path, _callback) shttp_route(shttpMethodOPTIONS, (_path), (_callback))
-#define HEAD(_path, _callback) shttp_route(shttpMethodHEAD, (_path), (_callback) })
+#define GET(_path, _callback, _ud) shttp_route(shttpMethodGET, (_path), (_callback), (_ud))
+#define POST(_path, _callback, _ud) shttp_route(shttpMethodPOST, (_path), (_callback), (_ud))
+#define PUT(_path, _callback, _ud) shttp_route(shttpMethodPUT, (_path), (_callback), (_ud))
+#define PATCH(_path, _callback, _ud) shttp_route(shttpMethodPATCH, (_path), (_callback), (_ud))
+#define DELETE(_path, _callback, _ud) shttp_route(shttpMethodDELETE, (_path), (_callback), (_ud))
+#define OPTIONS(_path, _callback, _ud) shttp_route(shttpMethodOPTIONS, (_path), (_callback), (_ud))
+#define HEAD(_path, _callback, _ud) shttp_route(shttpMethodHEAD, (_path), (_callback), (_ud))
 
 shttpResponse *shttp_empty_response(shttpStatusCode status);
 
