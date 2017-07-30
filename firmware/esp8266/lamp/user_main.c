@@ -112,17 +112,17 @@ void ICACHE_FLASH_ATTR wifi_event_handler_cb(System_Event_t *event) {
 
 static void sendValuesToArduino(void) {
     printf("mode=%d\n", mode);
-    vTaskDelay(10 / portTICK_RATE_MS);
+    vTaskDelay(20 / portTICK_RATE_MS);
     printf("hue=%d\n", (int)(hue * 255.0));
-    vTaskDelay(10 / portTICK_RATE_MS);
+    vTaskDelay(20 / portTICK_RATE_MS);
     printf("saturation=%d\n", (int)(saturation * 255.0));
-    vTaskDelay(10 / portTICK_RATE_MS);
+    vTaskDelay(20 / portTICK_RATE_MS);
     printf("brightness=%d\n", (int)(brightness * 255.0));
-    vTaskDelay(10 / portTICK_RATE_MS);
+    vTaskDelay(20 / portTICK_RATE_MS);
     printf("lowpowerring=%d\n", (int)(lowPowerRing * 255.0));
-    vTaskDelay(10 / portTICK_RATE_MS);
+    vTaskDelay(20 / portTICK_RATE_MS);
     printf("highpowerring=%d\n", (int)(highPowerRing * 255.0));
-    vTaskDelay(10 / portTICK_RATE_MS);
+    vTaskDelay(20 / portTICK_RATE_MS);
 }
 
 static cJSON *buildResponse(void) {
